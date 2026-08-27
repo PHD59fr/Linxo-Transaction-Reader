@@ -87,7 +87,7 @@ func TestParseTabSeparated_Basic(t *testing.T) {
 }
 
 func TestParseTabSeparated_LazyQuotes(t *testing.T) {
-	text := `a\t"b with "quotes""`
+	text := "a\t\"b with \"quotes\"\""
 	_, err := parseTabSeparated(text)
 	if err != nil {
 		t.Fatalf("lazy quotes should not error: %v", err)
