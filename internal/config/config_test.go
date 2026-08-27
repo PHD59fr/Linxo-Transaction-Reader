@@ -89,7 +89,7 @@ func TestEnvOr_Present(t *testing.T) {
 
 func TestEnvOr_Missing(t *testing.T) {
 	key := "TEST_ENV_OR_MISSING"
-	os.Unsetenv(key) //nolint:errcheck
+	_ = os.Unsetenv(key)
 
 	got := envOr(key, "fallback")
 	if got != "fallback" {
@@ -128,7 +128,7 @@ func TestEnvOrDuration_Invalid(t *testing.T) {
 
 func TestEnvOrDuration_Missing(t *testing.T) {
 	key := "TEST_DUR_MISSING"
-	os.Unsetenv(key) //nolint:errcheck
+	_ = os.Unsetenv(key)
 
 	got := envOrDuration(key, 10*time.Second)
 	if got != 10*time.Second {

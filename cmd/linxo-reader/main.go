@@ -17,8 +17,8 @@ func main() {
 
 	log.Printf("Starting bank API on :%s (debug=%v)", cfg.Port, cfg.Debug)
 
-	fetcher := func(cfg *config.Config) ([]models.Transaction, error) {
-		return linxo.FetchTransactions(context.Background(), cfg)
+	fetcher := func(ctx context.Context) ([]models.Transaction, error) {
+		return linxo.FetchTransactions(ctx, cfg)
 	}
 
 	srv := api.NewServer(cfg, fetcher)

@@ -2,7 +2,6 @@ package linxo
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 	"time"
@@ -40,7 +39,7 @@ func FetchTransactions(ctx context.Context, cfg *config.Config) ([]models.Transa
 		return nil, err
 	}
 	if viewID == "" {
-		return nil, errors.New("LinxoPViewSelection cookie not found")
+		log.Println("LinxoPViewSelection cookie not found; requesting the default view")
 	}
 
 	userAgent, err := sess.UserAgent()

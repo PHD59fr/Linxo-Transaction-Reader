@@ -25,7 +25,9 @@ func Load() *Config {
 	fs := flag.NewFlagSet("linxo-reader", flag.ContinueOnError)
 	debug := fs.Bool("debug", false, "Launch browser visibly (non-headless)")
 	port := fs.String("port", "8080", "HTTP listen port")
-	_ = fs.Parse(os.Args[1:])
+	if err := fs.Parse(os.Args[1:]); err != nil {
+		log.Printf("warning: failed to parse flags: %v", err)
+	}
 
 	apiKey := envOr("API_KEY", "")
 	if apiKey == "" {
@@ -69,6 +71,7 @@ func envOrDuration(key string, fallback time.Duration) time.Duration {
 	}
 	d, err := time.ParseDuration(v)
 	if err != nil {
+		log.Printf("warning: invalid duration for %s=%q, using default %v: %v", key, v, fallback, err)
 		return fallback
 	}
 	return d
